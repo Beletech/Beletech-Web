@@ -19,10 +19,6 @@
         <el-radio v-model="amount" label="10">0.1 元</el-radio>
         <el-radio v-model="amount" label="100">1 元</el-radio>
       </el-row>
-      <el-row>
-        <el-radio v-model="type" label="0">聚合支付</el-radio>
-        <el-radio v-model="type" label="1">普通模式</el-radio>
-      </el-row>
     </div>
   </basic-container>
 </template>
@@ -33,10 +29,6 @@
 <script>
 import VueQrcode from "@chenfengyuan/vue-qrcode";
 import request from "@/router/axios";
-import { getStore } from "@/util/store";
-
-const protocol = window.location.protocol;
-const host = window.location.host;
 
 export default {
   components: {
@@ -67,19 +59,14 @@ export default {
   methods: {
     getQr() {
       // 聚合支付模式 调用后端生成支付链接
-      if (this.type === "0") {
-        request({
-          url: "api/beletech-payment/goods/merge/buy",
-          method: "get",
-          params: { amount: this.amount },
-        }).then((res) => {
-          this.msg = res.data.params;
-        });
-      } else {
-        const TENANT_ID = getStore({ name: "tenantId" });
-        this.msg = `${protocol}//${host}/api/beletech-payment/goods/buy?amount=${this.amount}&tenantId=${TENANT_ID}`;
-      }
-    },
-  },
+      request({
+        url: "api/beletech-payment/platform-scheme-order/merge/buy",
+        method: "get",
+        params: { amount: this.amount },
+      }).then((res) => {
+        this.msg = res.data.params;
+      });
+    }
+  }
 };
 </script>
