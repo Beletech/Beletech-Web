@@ -1,72 +1,116 @@
+
 <template>
   <basic-container>
-    <div style="text-align: center">
-      <el-row>
-        <el-col :span="24"><h2>聚合支付</h2></el-col>
-      </el-row>
-
-      <el-row>
-        <el-col :span="24">
-          <qrcode :value="msg" :options="options" />
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="24"><h4>请使用微信或支付宝手机客户端扫一扫</h4></el-col>
-      </el-row>
-      <el-row> 请勿大额支付，无法退还请知悉 2</el-row>
-      <el-row>
-        <el-radio v-model="amount" label="1">0.01 元</el-radio>
-        <el-radio v-model="amount" label="10">0.1 元</el-radio>
-        <el-radio v-model="amount" label="100">1 元</el-radio>
-      </el-row>
-    </div>
+    <avue-data-pay :option="option"></avue-data-pay>
   </basic-container>
 </template>
 
-<style>
-</style>
-
 <script>
-import VueQrcode from "@chenfengyuan/vue-qrcode";
-import request from "@/router/axios";
-
 export default {
-  components: {
-    qrcode: VueQrcode,
-  },
   data() {
     return {
-      type: "1",
-      amount: "1",
-      msg: "NULL",
-      options: {
-        height: 300,
-        width: 300,
-      },
+      option: {
+        span: 8,
+        data: [
+          {
+            title: "延长试用",
+            src: "images/vip1.png",
+            // money: "5",
+            dismoney: "5",
+            tip: "/天",
+            color: "#808695",
+            subtext: "购买",
+            click: function (item) {
+              alert(JSON.stringify(item));
+            },
+            list: [
+              {
+                title: "功能：测试版功能，模块无限制",
+                check: true,
+              },
+              {
+                title: "功能：不限用户数，不限设备数",
+                check: true,
+              },
+              {
+                title: "服务：试用期内，提供技术支持",
+                check: true,
+              },
+              {
+                title: "服务：提供教程，提供人工服务",
+                check: true,
+              },
+              {
+                title: "时长：1-15天，按天计费",
+                check: true,
+              },
+            ],
+          },
+          {
+            title: "云服务版",
+            src: "images/vip2.png",
+            color: "#ffa820",
+            money: "",
+            dismoney: "3600",
+            tip: "/年",
+            subtext: "购买",
+            click: function (item) {
+              alert(JSON.stringify(item));
+            },
+            list: [
+              {
+                title: "小程序缴费、保修、催缴",
+                check: true,
+              },
+              {
+                title: "可视化数据屏、显示实时收费信息",
+                check: true,
+              },
+              {
+                title: "供热缴费、减免、报停",
+                check: true,
+              },
+              {
+                title: "自定义报修表单，后台添加维护信息",
+                check: true,
+              },
+            ],
+          },
+          {
+            title: "私有化定制",
+            src: "images/vip3.png",
+            color: "#ef4868",
+            money: "",
+            dismoney: "48000",
+            tip: "/永久",
+            subtext: "购买",
+            click: function (item) {
+              alert(JSON.stringify(item));
+            },
+            list: [
+              {
+                title: "按云平台现有功能定制",
+                check: true,
+              },
+              {
+                title:
+                  "数据本地化PC端+小程序+公众号独立组合开发皮肤/logo/界面自定义定做",
+                check: true,
+              },
+              {
+                title:
+                  "根据用户行业特点，提供报修解决方案按照用户实际需求，根据需求定制开发签订合同",
+                check: true,
+              },
+              {
+                title: "提供解决方案，按年维护",
+                check: true,
+              },
+            ],
+          },
+        ],
+      }
     };
   },
-  watch: {
-    amount: function () {
-      this.getQr();
-    },
-    type: function () {
-      this.getQr();
-    },
-  },
-  created() {
-    this.getQr();
-  },
-  methods: {
-    getQr() {
-      // 聚合支付模式 调用后端生成支付链接
-      request({
-        url: "api/beletech-payment/platform-scheme-order/merge/buy",
-        method: "get",
-        params: { amount: this.amount },
-      }).then((res) => {
-        this.msg = res.data.params;
-      });
-    }
-  }
 };
 </script>
