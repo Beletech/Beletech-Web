@@ -102,5 +102,21 @@ export default [{
     },
     component: () =>
       import( /* webpackChunkName: "views" */ '@/views/work/process/leave/detail')
+  }, {
+    path: '/pay/details',
+    name: '订单详情',
+    meta: {
+      i18n: 'pay'
+    },
+    component: () =>
+      import( /* webpackChunkName: "views" */ '@/views/pay/details')
+  }, {
+    path: '/pay/pay',
+    name: '扫码支付',
+    meta: {
+      i18n: 'pay'
+    },
+    component: () =>
+      import( /* webpackChunkName: "views" */ '@/views/pay/pay')
   }]
 }]
