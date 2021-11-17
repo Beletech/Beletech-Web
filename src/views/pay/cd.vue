@@ -20,7 +20,6 @@ export default {
           {
             title: "延长试用",
             src: "images/vip1.png",
-            // money: "5",
             dismoney: "5",
             tip: "/天",
             color: "#808695",
@@ -84,7 +83,6 @@ export default {
             title: "云服务版",
             src: "images/vip2.png",
             color: "#ffa820",
-            money: "",
             dismoney: "3600",
             tip: "/年",
             subtext: "购买",
