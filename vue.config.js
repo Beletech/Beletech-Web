@@ -26,7 +26,7 @@ module.exports = {
     proxy: {
       '/api': {
         //本地服务接口地址
-        target: 'https://wechat.betaxue.com',
+        target: 'http://127.0.0.1:8080',
         ws: true,
         pathRewrite: {
           '^/api': '/'
